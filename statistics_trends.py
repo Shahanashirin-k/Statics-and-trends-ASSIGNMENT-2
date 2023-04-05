@@ -122,7 +122,7 @@ def bargraph_2():
 
 def bargraph_3():
     """
-     Reads methane emission data from 'agri_metth_kmt' CSV file and creates a bar graph of the data. 
+     Reads methane emission data from 'metane_kt' CSV file and creates a bar graph of the data. 
      Calculates the mean, median, and mode of the data and prints the results.
     """
 
