@@ -233,43 +233,45 @@ def lineplot_2():
     """
     Reads in a CSV file of electric power consumption data and creates a line plot of the data for selected countries.
     Saves the plot as a PNG file and displays it in the console.
-    """    
+    """
     # Read in the CSV file and drop unnecessary columns
     df_elec = read_data("electric pwr.csv")
     df_elec.drop(['Country Code', '2015 [YR2015]', '2016 [YR2016]', '2017 [YR2017]',
                  '2018 [YR2018]', '2019 [YR2019]', '2020 [YR2020]', '2021 [YR2021]'], axis=1, inplace=True)
-    
+
     # Remove year strings from column names
     df_elec.columns = df_elec.columns.str.replace(
         ' \[YR\d{4}\]', '', regex=True)  # Remove string of year from column names
-    
+
     # Select countries of interest and transpose the data
     countries = ['India', 'China', 'Bangladesh', 'Pakistan', 'Nigeria',
                  'Indonesia', 'United Kingdom', 'Brazil', 'United States', 'Mexico', 'Japan']
     elect_df = df_elec[df_elec['Country Name'].isin(countries)]
     elect_df = elect_df.set_index('Country Name').T
-    
+
     # Convert 'no data' strings to NaN and convert data to floats
     elect_df = elect_df.replace('..', float('NaN')).astype(float)
-    
+
     # Create a line plot of the data
     elect_df.plot(figsize=(10, 6))
-    
+
     # Set plot labels and title
     plt.xlabel("Year", fontsize=13)
     plt.ylabel("Electric power consumption", fontsize=13)
     plt.title("Electric power consumption (kWh per capita)", fontsize=14)
-    
+
     # Set font sizes for tick labels and legend
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
     plt.legend(title='Countries', bbox_to_anchor=(
         1.01, 1), fontsize=12, title_fontsize=12)
+    
     # Save the plot as a PNG file and display in the console
     plt.savefig('Electric.png', dpi=600, bbox_inches='tight')
     plt.show()
+
     
-# main function
+# main function for visualization:
 if __name__ == '__main__':
     """
     Main function that calls the other functions to create the plots.
@@ -278,6 +280,7 @@ if __name__ == '__main__':
     bargraph_1()
     bargraph_2()
     bargraph_3() 
+    
     # Calling the bargraph_1&2 function to visualise the lineplot      
     lineplot_1()
     lineplot_2()
